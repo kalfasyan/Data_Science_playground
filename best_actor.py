@@ -11,13 +11,14 @@ df = pd.read_csv('movie_metadata.csv')
 # I'm examining only 'first name' actors
 # see alternative solution for 2nd/3rd actors
 grouped = df.groupby(df['actor_1_name'], as_index=False)
-groupdf = grouped.imdb_score.agg([np.mean, np.std, len])
+groupdf = grouped.imdb_score.agg([np.mean, np.std, len])    # mean, standard deviation, and nr-of-movies columns
+groupdf['se'] = groupdf['std'] / np.sqrt(groupdf.len)       # standard error column
 groupdf.dropna(axis=0, inplace=True)
-groupdf = groupdf[groupdf.len>=15]
-groupdf.sort(['mean'],ascending=True,inplace=True)
+groupdf = groupdf[groupdf.len>=15]                          # actors with 15 movies and more
+groupdf.sort(['mean'],ascending=True,inplace=True)          # sorted by average imdb movie rating
 groupdf.reset_index(inplace=True)
 groupdf['names'] = groupdf.index
-groupdf['se'] = groupdf['std'] / np.sqrt(groupdf.len)
+
 
 fig = groupdf.plot(kind='scatter', x='mean', y='names',yticks=range(50),xerr='se',figsize=(12,12));
 fig.set_yticklabels(groupdf.actor_1_name, rotation=0)
