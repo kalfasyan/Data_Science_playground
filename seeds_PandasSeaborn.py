@@ -25,6 +25,7 @@ sns.FacetGrid(wheat, hue='wheat_type', size=5) \
 #ax = sns.stripplot(x='wheat_type', y='perimeter', data=wheat, jitter=True, edgecolor='gray')
 
 # Violing plot. Dense regions of the data are wider, sparse regions are thinner
+plt.figure()
 sns.violinplot(x='wheat_type', y='perimeter', data=wheat, size=6)
 
 # Looking at univariate relations.
