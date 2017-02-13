@@ -8,20 +8,27 @@ plt.style.use('ggplot')
 
 df = pd.read_csv('movie_metadata.csv')
 
-# I'm examining only 'first name' actors
+# In case of actors, I'm examining only 'first name'
 # see alternative solution for 2nd/3rd actors
-grouped = df.groupby(df['actor_1_name'], as_index=False)
+actordirector = 'director_name' # actor_1_name
+
+if actordirector == 'director_name':
+    nrMovies = 10
+elif actordirector == 'actor_1_name':
+    nrMovies = 15
+
+grouped = df.groupby(df[actordirector], as_index=False)
 groupdf = grouped.imdb_score.agg([np.mean, np.std, len])    # mean, standard deviation, and nr-of-movies columns
 groupdf['se'] = groupdf['std'] / np.sqrt(groupdf.len)       # standard error column
 groupdf.dropna(axis=0, inplace=True)
-groupdf = groupdf[groupdf.len>=15]                          # actors with 15 movies and more
+groupdf = groupdf[groupdf.len>=nrMovies]                    # select actors/directors with more than nrMovies movies
 groupdf.sort(['mean'],ascending=True,inplace=True)          # sorted by average imdb movie rating
 groupdf.reset_index(inplace=True)
 groupdf['names'] = groupdf.index
 
 
-fig = groupdf.plot(kind='scatter', x='mean', y='names',yticks=range(50),xerr='se',figsize=(12,12));
-fig.set_yticklabels(groupdf.actor_1_name, rotation=0)
+fig = groupdf.plot(kind='scatter', x='mean', y='names',yticks=range(50),xerr='se',figsize=(11,11))
+fig.set_yticklabels(groupdf[actordirector]   , rotation=0)
 plt.show()
 
 """ #Alternative solution with dictionary, correlations with imdb_score and Histogram of all ratings
