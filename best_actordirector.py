@@ -7,6 +7,7 @@ plt.style.use('ggplot')
 
 df = pd.read_csv('movie_metadata.csv')
 actordirector = 'director_name' # actor_1_name
+assert actordirector in ('actor_1_name','director_name'), 'Specify director_name or actor_1_name'
 if actordirector == 'director_name':
     nrMovies = 10
 elif actordirector == 'actor_1_name':
