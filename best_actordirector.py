@@ -1,7 +1,5 @@
 import pandas as pd
 import numpy as np
-#import ggplot 
-from ggplot import *
 import matplotlib.pyplot as plt
 plt.style.use('ggplot')
 
