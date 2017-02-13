@@ -1,4 +1,4 @@
-# kaggle_imdb_playground
+# Data_science_playground
 
 Playing with Python and Pandas.
 
