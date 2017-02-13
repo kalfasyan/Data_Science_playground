@@ -22,6 +22,6 @@ groupdf.reset_index(inplace=True)
 groupdf['names'] = groupdf.index
 
 
-fig = groupdf.plot(kind='scatter', x='mean', y='names',yticks=range(50),xerr='se',figsize=(11,11))
+fig = groupdf.plot(kind='scatter', x='mean', y='names',yticks=range(len(groupdf)),xerr='se',figsize=(11,11))
 fig.set_yticklabels(groupdf[actordirector]   , rotation=0)
 plt.show()
