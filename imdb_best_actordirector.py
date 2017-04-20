@@ -17,7 +17,7 @@ groupdf = grouped.imdb_score.agg([np.mean, np.std, len])    # mean, standard dev
 groupdf['se'] = groupdf['std'] / np.sqrt(groupdf.len)       # standard error column
 groupdf.dropna(axis=0, inplace=True)
 groupdf = groupdf[groupdf.len>=nrMovies]                    # select actors/directors with more than nrMovies movies
-groupdf.sort(['mean'],ascending=True,inplace=True)          # sorted by average imdb movie rating
+groupdf.sort_values(['mean'],ascending=True,inplace=True)          # sorted by average imdb movie rating
 groupdf.reset_index(inplace=True)
 groupdf['names'] = groupdf.index
 
